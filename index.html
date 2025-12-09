@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pré-Natal Dra. Schwartz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- 🌸 Fonte Sacramento apenas no cabeçalho -->
+  <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --rosa1: #ec407a;
+      --rosa2: #d81b60;
+      --rosa3: #f48fb1;
+      --rosa-claro: #ffe4ef;
+      --bg: #fff7fb;
+      --texto: #333;
+
+      --risk-baixo: #e8f5e9;
+      --risk-inter: #fff8e1;
+      --risk-alto: #ffebee;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    }
+
+    /* 🌸 CABEÇALHO */
+    header {
+      background: linear-gradient(135deg, var(--rosa1), var(--rosa2));
+      padding: 22px;
+      text-align: center;
+      color: #fff;
+      border-bottom-left-radius: 22px;
+      border-bottom-right-radius: 22px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 42px;
+      font-family: 'Sacramento', cursive;
+      font-weight: 400;
+    }
+
+    .subtitle {
+      opacity: .95;
+      margin-top: 6px;
+      font-size: 14px;
+    }
+
+    .chips {
+      margin-top: 8px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255,255,255,0.22);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      margin: 2px;
+    }
+
+    /* 🌸 CONTAINER */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto 40px;
+      padding: 16px;
+    }
+
+    /* 🌸 CARDS */
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 20px;
+      border: 1px solid var(--rosa3);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 20px;
+      color: #880e4f;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* 🌸 INPUTS */
+    label {
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 7px 9px;
+      margin-top: 3px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 13px;
+      background: #fff;
+      font-family: inherit;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+
+    /* GRID */
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .col-2 { flex: 0 0 calc(16.66% - 8px); }
+    .col-3 { flex: 0 0 calc(25% - 8px); }
+    .col-4 { flex: 0 0 calc(33.33% - 8px); }
+    .col-6 { flex: 0 0 calc(50% - 8px); }
+    .col-12 { flex: 0 0 100%; }
+
+    @media (max-width: 900px) {
+      .col-2, .col-3, .col-4, .col-6 { flex: 0 0 100%; }
+    }
+
+    /* BOTÕES */
+    button {
+      border: none;
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+      font-family: inherit;
+      transition: .2s;
+    }
+
+    .btn-primary {
+      width: 100%;
+      background: var(--rosa1);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--rosa2);
+    }
+
+    .btn-outline {
+      background: #fff;
+      color: var(--rosa2);
+      border: 1px solid var(--rosa2);
+    }
+
+    .btn-outline:hover {
+      background: var(--rosa-claro);
+    }
+
+    .btn-small {
+      font-size: 11px;
+      padding: 4px 8px;
+      margin: 1px;
+    }
+
+    /* 🌸 ACCORDION DAS ROTINAS */
+    .collapse-card {
+      margin: 8px 0;
+      border: 1px solid #f3c5dd;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff7fb;
+    }
+
+    .collapse-header {
+      padding: 10px 14px;
+      background: #fce4ec;
+      color: #880e4f;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+      font-size: 15px;
+      transition: .2s;
+    }
+
+    .collapse-header:hover {
+      background: #f8bbd0;
+    }
+
+    .collapse-icon {
+      font-size: 18px;
+      transition: transform .25s;
+    }
+
+    .collapse-content {
+      display: none;
+      padding: 14px;
+      animation: fadeIn .3s ease;
+    }
+
+    .collapse-open .collapse-content {
+      display: block;
+    }
+
+    .collapse-open .collapse-icon {
+      transform: rotate(90deg);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Pré-Natal Dra. Schwartz</h1>
+  <div class="subtitle">Gerenciamento completo conforme protocolo — desenvolvido por quem vive o pré-natal na prática.</div>
+
+  <div class="chips">
+    <span class="chip">🟢 Habitual</span>
+    <span class="chip">🟡 Intermediário</span>
+    <span class="chip">🔴 Alto risco</span>
+  </div>
+</header>
+
+<div class="container">
+
+<!-- ============================================================
+     FORMULÁRIO COMPLETO
+=============================================================== -->
+<div class="card">
+  <h2>🤰 Cadastrar / Editar Gestante</h2>
+
+  <form id="form-gestante">
+    <input type="hidden" id="id" />
+
+    <!-- DADOS PRINCIPAIS -->
+    <div class="row">
+
+      <div class="col-6">
+        <label>Nome completo</label>
+        <input id="nome" required />
+      </div>
+
+      <div class="col-3">
+        <label>Data de nascimento</label>
+        <input id="dataNasc" type="date" />
+      </div>
+
+      <div class="col-3">
+        <label>Idade</label>
+        <input id="idade" type="number" min="10" max="60" />
+      </div>
+
+      <div class="col-4">
+        <label>UBS</label>
+        <input id="ubs" />
+      </div>
+
+      <div class="col-4">
+        <label>Microárea</label>
+        <input id="microarea" />
+      </div>
+
+      <div class="col-4">
+        <label>ACS</label>
+        <input id="acs" />
+      </div>
+
+      <div class="col-3">
+        <label>Classificação de risco</label>
+        <select id="risco">
+          <option value="">Selecione</option>
+          <option value="baixo">Risco habitual</option>
+          <option value="intermediario">Risco intermediário</option>
+          <option value="alto">Alto risco</option>
+        </select>
+      </div>
+
+      <div class="col-3">
+        <label>DUM</label>
+        <input id="dum" type="date" />
+      </div>
+
+      <div class="col-3">
+        <label>Data da 1ª US</label>
+        <input id="usData" type="date" />
+      </div>
+
+      <div class="col-3">
+        <label>IG na US (sem)</label>
+        <input id="usSemanas" type="number" />
+      </div>
+
+      <div class="col-3">
+        <label>IG na US (dias)</label>
+        <input id="usDias" type="number" />
+      </div>
+
+      <div class="col-3">
+        <label>Última consulta</label>
+        <input id="consultaUltima" type="date" />
+      </div>
+
+      <div class="col-3">
+        <label>Próxima consulta</label>
+        <input id="consultaProxima" type="date" />
+      </div>
+
+      <div class="col-3">
+        <label>Consulta obstetra</label>
+        <input id="consultaObstetra" type="date" />
+      </div>
+
+      <div class="col-3">
+        <label>Nutricionista</label>
+        <select id="nutricionista">
+          <option value="">Não informado</option>
+          <option value="indicado">Indicado</option>
+          <option value="agendado">Agendado</option>
+          <option value="realizado">Realizado</option>
+        </select>
+      </div>
+
+      <div class="col-3">
+        <label>Consulta nutri</label>
+        <input id="dataNutri" type="date" />
+      </div>
+
+      <div class="col-3">
+        <label>Encaminhamento alto risco</label>
+        <select id="altoRiscoExterno">
+          <option value="">Não informado</option>
+          <option value="encaminhada">Encaminhada</option>
+          <option value="acompanhamento">Em acompanhamento</option>
+          <option value="nao">Não encaminhada</option>
+        </select>
+      </div>
+
+      <div class="col-3">
+        <label>Data do alto risco</label>
+        <input id="dataAltoRisco" type="date" />
+      </div>
+
+      <div class="col-3">
+        <label>DPP</label>
+        <input id="dpp" type="date" readonly />
+      </div>
+
+    </div>
+
+    <hr />
+<script>
+/* ============================================================
+   🌸 FUNÇÃO PARA ABRIR/FECHAR OS ACCORDIONS DAS ROTINAS
+============================================================ */
+function toggleCollapse(header) {
+  const card = header.parentElement;
+  card.classList.toggle("collapse-open");
+}
+
+/* ============================================================
+   🌸 MOSTRAR CAMPO DE OBSERVAÇÃO SE REAGENTE
+============================================================ */
+function configurarCamposReagentes() {
+  const pares = [
+    ["hiv1", "hiv1_obs"],
+    ["sif1", "sif1_obs"],
+    ["hbv1", "hbv1_obs"],
+    ["hcv1", "hcv1_obs"],
+
+    ["hiv2", "hiv2_obs"],
+    ["sif2", "sif2_obs"],
+    ["hbv2", "hbv2_obs"],
+    ["hcv2", "hcv2_obs"],
+
+    ["hiv3", "hiv3_obs"],
+    ["sif3", "sif3_obs"],
+    ["hbv3", "hbv3_obs"],
+    ["hcv3", "hcv3_obs"]
+  ];
+
+  pares.forEach(([selectId, obsId]) => {
+    const sel = document.getElementById(selectId);
+    const obs = document.getElementById(obsId);
+
+    function atualizar() {
+      obs.style.display = sel.value === "reag" ? "block" : "none";
+      if (sel.value !== "reag") obs.value = "";
+    }
+    sel.addEventListener("change", atualizar);
+    atualizar();
+  });
+}
+
+window.addEventListener("load", configurarCamposReagentes);
+
+/* ============================================================
+   🌸 CÁLCULO AUTOMÁTICO DA DPP COM BASE NA DUM
+============================================================ */
+document.getElementById("dum").addEventListener("change", function () {
+  if (!this.value) return;
+  const dpp = new Date(this.value);
+  dpp.setDate(dpp.getDate() + 280);
+  document.getElementById("dpp").value = dpp.toISOString().substring(0,10);
+});
+
+/* ============================================================
+   🌸 SALVAR GESTANTE COMPLETA NO LOCALSTORAGE
+============================================================ */
+function salvarGestante() {
+  const id = document.getElementById("id").value || Date.now().toString();
+
+  const campos = [
+    "nome","dataNasc","idade","ubs","microarea","acs","risco","dum",
+    "usData","usSemanas","usDias","consultaUltima","consultaProxima",
+    "consultaObstetra","nutricionista","dataNutri","altoRiscoExterno",
+    "dataAltoRisco","dpp",
+
+    "hiv1","hiv1_obs","sif1","sif1_obs","hbv1","hbv1_obs","hcv1","hcv1_obs",
+    "hiv2","hiv2_obs","sif2","sif2_obs","hbv2","hbv2_obs","hcv2","hcv2_obs",
+    "hiv3","hiv3_obs","sif3","sif3_obs","hbv3","hbv3_obs","hcv3","hcv3_obs"
+  ];
+
+  const dados = { id };
+  campos.forEach(campo => {
+    const el = document.getElementById(campo);
+    dados[campo] = el ? el.value : "";
+  });
+
+  let lista = JSON.parse(localStorage.getItem("gestantes")) || [];
+  const indice = lista.findIndex((g) => g.id === id);
+
+  if (indice >= 0) lista[indice] = dados;
+  else lista.push(dados);
+
+  localStorage.setItem("gestantes", JSON.stringify(lista));
+
+  alert("Gestante salva com sucesso!");
+  document.getElementById("form-gestante").reset();
+  renderTabela();
+  configurarCamposReagentes();
+}
+
+/* ============================================================
+   🌸 EDITAR GESTANTE (TRAZ PARA O FORMULÁRIO)
+============================================================ */
+function editarGestante(id) {
+  const lista = JSON.parse(localStorage.getItem("gestantes")) || [];
+  const g = lista.find(item => item.id === id);
+  if (!g) return;
+
+  Object.keys(g).forEach(campo => {
+    if (document.getElementById(campo)) {
+      document.getElementById(campo).value = g[campo];
+    }
+  });
+
+  configurarCamposReagentes();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* ============================================================
+   🌸 EXCLUIR GESTANTE
+============================================================ */
+function excluirGestante(id) {
+  if (!confirm("Deseja realmente excluir esta gestante?")) return;
+
+  let lista = JSON.parse(localStorage.getItem("gestantes")) || [];
+  lista = lista.filter(g => g.id !== id);
+  localStorage.setItem("gestantes", JSON.stringify(lista));
+
+  renderTabela();
+}
+
+/* ============================================================
+   🌸 BADGES PARA EXAMES
+============================================================ */
+function badgeTeste(valor, obs) {
+  if (!valor) return "—";
+  if (valor === "nr") return "🟢 NR";
+  if (valor === "reag") return `🔴 Reagente ${obs ? "(" + obs + ")" : ""}`;
+}
+
+/* ============================================================
+   🌸 RENDERIZA TABELA PRINCIPAL
+============================================================ */
+function renderTabela() {
+  const tabela = document.getElementById("listaGestantes");
+  const lista = JSON.parse(localStorage.getItem("gestantes")) || [];
+
+  tabela.innerHTML = "";
+
+  lista.forEach(g => {
+    const linha = document.createElement("tr");
+
+    linha.innerHTML = `
+      <td>${g.nome}</td>
+      <td>
+        ${
+          g.risco === "baixo" ? "🟢 Habitual" :
+          g.risco === "intermediario" ? "🟡 Intermediário" :
+          g.risco === "alto" ? "🔴 Alto risco" : "—"
+        }
+      </td>
+      <td>${g.dpp || "—"}</td>
+      <td>${badgeTeste(g.hiv1, g.hiv1_obs)} / ${badgeTeste(g.sif1, g.sif1_obs)}</td>
+      <td>
+        <button class="btn-small btn-outline" onclick="editarGestante('${g.id}')">Editar</button>
+        <button class="btn-small" style="background:#f44336;color:white" onclick="excluirGestante('${g.id}')">Excluir</button>
+        <button class="btn-small" style="background:#880e4f;color:white" onclick="gerarPDF('${g.id}')">PDF</button>
+      </td>
+    `;
+
+    tabela.appendChild(linha);
+  });
+}
+
+/* ============================================================
+   🌸 INICIALIZAÇÃO
+============================================================ */
+window.onload = function () {
+  renderTabela();
+  configurarCamposReagentes();
+};
+
+/* ============================================================
+   🌸 BOTÃO SALVAR
+============================================================ */
+document.getElementById("form-gestante").addEventListener("submit", function (e) {
+  e.preventDefault();
+  salvarGestante();
+});
+</script>
+<!-- ============================================================
+     📄 PDF (jsPDF)
+=============================================================== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+/* ============================================================
+   📄 PDF INDIVIDUAL — COMPLETO
+============================================================ */
+function gerarPDF(id) {
+  const lista = JSON.parse(localStorage.getItem("gestantes")) || [];
+  const g = lista.find(x => x.id === id);
+  if (!g) return alert("Erro ao gerar PDF.");
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  let y = 12;
+
+  function linha(texto) {
+    doc.text(texto, 10, y);
+    y += 6;
+  }
+
+  doc.setFontSize(18);
+  linha("Pré-Natal — Dados da Gestante");
+  doc.setFontSize(12);
+  y += 4;
+
+  linha(`Nome: ${g.nome}`);
+  linha(`Idade: ${g.idade}`);
+  linha(`UBS: ${g.ubs}`);
+  linha(`Microárea: ${g.microarea}`);
+  linha(`ACS: ${g.acs}`);
+  linha(`Classificação de risco: ${g.risco}`);
+
+  y += 5;
+  linha(`DUM: ${g.dum}`);
+  linha(`DPP: ${g.dpp}`);
+  linha(`US inicial: ${g.usData}`);
+  linha(`IG na US: ${g.usSemanas} semanas e ${g.usDias} dias`);
+
+  y += 6;
+  linha(`Última consulta: ${g.consultaUltima}`);
+  linha(`Próxima consulta: ${g.consultaProxima}`);
+  linha(`Consulta obstetra: ${g.consultaObstetra}`);
+
+  y += 6;
+  linha(`Nutricionista: ${g.nutricionista}`);
+  linha(`Data consulta nutri: ${g.dataNutri}`);
+
+  y += 5;
+  linha(`Alto risco externo: ${g.altoRiscoExterno}`);
+  linha(`Data alto risco: ${g.dataAltoRisco}`);
+
+  y += 10;
+  doc.setFontSize(14);
+  linha("Testes rápidos — Sorologias");
+  doc.setFontSize(12);
+  y += 4;
+
+  function bloco(titulo, a, b, c, d) {
+    linha(titulo);
+    linha(`• HIV: ${a}`);
+    linha(`• Sífilis: ${b}`);
+    linha(`• HBV: ${c}`);
+    linha(`• HCV: ${d}`);
+    y += 4;
+  }
+
+  function txt(val, obs) {
+    if (!val) return "Não realizado";
+    if (val === "nr") return "Não reagente";
+    if (val === "reag") return `Reagente ${obs ? "(" + obs + ")" : ""}`;
+  }
+
+  bloco(
+    "1ª rotina:",
+    txt(g.hiv1, g.hiv1_obs),
+    txt(g.sif1, g.sif1_obs),
+    txt(g.hbv1, g.hbv1_obs),
+    txt(g.hcv1, g.hcv1_obs)
+  );
+
+  bloco(
+    "2ª rotina:",
+    txt(g.hiv2, g.hiv2_obs),
+    txt(g.sif2, g.sif2_obs),
+    txt(g.hbv2, g.hbv2_obs),
+    txt(g.hcv2, g.hcv2_obs)
+  );
+
+  bloco(
+    "3ª rotina:",
+    txt(g.hiv3, g.hiv3_obs),
+    txt(g.sif3, g.sif3_obs),
+    txt(g.hbv3, g.hbv3_obs),
+    txt(g.hcv3, g.hcv3_obs)
+  );
+
+  // Rodapé
+  doc.setFontSize(10);
+  doc.text("Desenvolvido por Dra. Fernanda Schwartz", 10, 290);
+
+  doc.save(`gestante_${g.nome}.pdf`);
+}
+
+/* ============================================================
+   📄 PDF GERAL — COMPLETÃO (COM TODAS AS INFORMAÇÕES)
+============================================================ */
+function gerarPDFGeral() {
+  const lista = JSON.parse(localStorage.getItem("gestantes")) || [];
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  let y = 12;
+
+  doc.setFontSize(18);
+  doc.text("Lista Geral — Pré-Natal Dra. Schwartz", 10, y);
+  y += 10;
+
+  doc.setFontSize(12);
+
+  lista.forEach((g, index) => {
+
+    if (index > 0) {
+      doc.addPage();
+      y = 12;
+    }
+
+    doc.setFontSize(14);
+    doc.text(`Gestante: ${g.nome}`, 10, y);
+    y += 8;
+
+    doc.setFontSize(12);
+
+    function linha(txt) {
+      doc.text(txt, 10, y);
+      y += 6;
+    }
+
+    linha(`Idade: ${g.idade}`);
+    linha(`UBS: ${g.ubs}`);
+    linha(`Microárea: ${g.microarea}`);
+    linha(`ACS: ${g.acs}`);
+    linha(`Classificação de risco: ${g.risco}`);
+
+    linha(`DUM: ${g.dum}`);
+    linha(`DPP: ${g.dpp}`);
+    linha(`US inicial: ${g.usData}`);
+    linha(`IG na US: ${g.usSemanas} semanas, ${g.usDias} dias`);
+
+    linha(`Última consulta: ${g.consultaUltima}`);
+    linha(`Próxima consulta: ${g.consultaProxima}`);
+    linha(`Consulta obstetra: ${g.consultaObstetra}`);
+    linha(`Nutricionista: ${g.nutricionista}`);
+    linha(`Consulta nutri: ${g.dataNutri}`);
+
+    linha(`Alto risco externo: ${g.altoRiscoExterno}`);
+    linha(`Data alto risco: ${g.dataAltoRisco}`);
+
+    y += 4;
+    doc.setFontSize(13);
+    linha("Testes rápidos — Sorologias");
+    doc.setFontSize(12);
+
+    function txt(val, obs) {
+      if (!val) return "Não realizado";
+      if (val === "nr") return "Não reagente";
+      if (val === "reag") return `Reagente ${obs ? "(" + obs + ")" : ""}`;
+    }
+
+    linha(`1ª rotina — HIV: ${txt(g.hiv1,g.hiv1_obs)}, Sífilis: ${txt(g.sif1,g.sif1_obs)}, HBV: ${txt(g.hbv1,g.hbv1_obs)}, HCV: ${txt(g.hcv1,g.hcv1_obs)}`);
+    linha(`2ª rotina — HIV: ${txt(g.hiv2,g.hiv2_obs)}, Sífilis: ${txt(g.sif2,g.sif2_obs)}, HBV: ${txt(g.hbv2,g.hbv2_obs)}, HCV: ${txt(g.hcv2,g.hcv2_obs)}`);
+    linha(`3ª rotina — HIV: ${txt(g.hiv3,g.hiv3_obs)}, Sífilis: ${txt(g.sif3,g.sif3_obs)}, HBV: ${txt(g.hbv3,g.hbv3_obs)}, HCV: ${txt(g.hcv3,g.hcv3_obs)}`);
+
+    // Rodapé
+    doc.setFontSize(10);
+    doc.text("Desenvolvido por Dra. Fernanda Schwartz", 10, 290);
+  });
+
+  doc.save("lista_geral_gestantes.pdf");
+}
+
+/* ============================================================
+   🔐 BACKUP E RESTAURAÇÃO
+============================================================ */
+function gerarBackup() {
+  const dados = localStorage.getItem("gestantes") || "[]";
+  const blob = new Blob([dados], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "backup_prenatal.json";
+  a.click();
+}
+
+function restaurarBackup(event) {
+  const arq = event.target.files[0];
+  if (!arq) return;
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    localStorage.setItem("gestantes", e.target.result);
+    alert("Backup restaurado com sucesso!");
+    renderTabela();
+  };
+  reader.readAsText(arq);
+}
+
+/* ============================================================
+   🔐 LOGIN FIREBASE (preservado)
+============================================================ */
+</script>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyAg0HPhWoqbEhjybTYDfBg1AQbCbbIquaE",
+  authDomain: "gerenciador-draschwartz.firebaseapp.com",
+  projectId: "gerenciador-draschwartz",
+  storageBucket: "gerenciador-draschwartz.firebasestorage.app",
+  messagingSenderId: "4972937984",
+  appId: "1:4972937984:web:example"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+</script>
+
+<footer style="text-align:center;padding:14px;font-size:12px;color:#555;">
+  Desenvolvido por Dra. Fernanda Schwartz
+</footer>
+
+</body>
+</html>
