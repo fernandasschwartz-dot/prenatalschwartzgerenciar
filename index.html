@@ -1,0 +1,2001 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>PRÉ-NATAL DRA SCHWARTZ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Fonte Sacramento para o cabeçalho -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --rosa1: #ec407a;
+      --rosa2: #d81b60;
+      --rosa3: #f48fb1;
+      --rosa-claro: #ffe4ef;
+      --bg: #fff7fb;
+      --texto: #333;
+
+      --risk-baixo: #e8f5e9;
+      --risk-inter: #fff8e1;
+      --risk-alto: #ffebee;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--texto);
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--rosa1), var(--rosa2));
+      color: white;
+      text-align: center;
+      padding: 22px 12px 18px;
+      border-bottom-left-radius: 22px;
+      border-bottom-right-radius: 22px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      position: relative;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 40px;
+      font-weight: 400;
+      font-family: "Sacramento", cursive;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .gestante-icon { font-size: 30px; }
+
+    .subtitle {
+      font-size: 14px;
+      margin-top: 6px;
+      opacity: 0.95;
+    }
+
+    .chips { margin-top: 8px; }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255,255,255,0.22);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      margin: 2px;
+    }
+
+    .logout-area {
+      position: absolute;
+      right: 12px;
+      top: 12px;
+    }
+
+    .logout-area button {
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+    }
+
+    .logout-area button:hover {
+      background: rgba(255,255,255,0.35);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto 40px;
+      padding: 16px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 18px;
+      border: 1px solid var(--rosa3);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      color: #880e4f;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 7px 9px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      margin-top: 3px;
+      font-size: 13px;
+      font-family: inherit;
+      background: #fff;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .col-2 { flex: 0 0 calc(16.66% - 8px); }
+    .col-3 { flex: 0 0 calc(25% - 8px); }
+    .col-4 { flex: 0 0 calc(33.33% - 8px); }
+    .col-6 { flex: 0 0 calc(50% - 8px); }
+    .col-12 { flex: 0 0 100%; }
+
+    @media (max-width: 900px) {
+      .col-2, .col-3, .col-4, .col-6 { flex: 0 0 100%; }
+    }
+
+    button {
+      border: none;
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--rosa1);
+      color: white;
+      width: 100%;
+    }
+    .btn-primary:hover { background: var(--rosa2); }
+
+    .btn-outline {
+      background: white;
+      color: var(--rosa2);
+      border: 1px solid var(--rosa2);
+    }
+    .btn-outline:hover { background: var(--rosa-claro); }
+
+    .btn-small {
+      font-size: 11px;
+      padding: 4px 8px;
+      margin: 1px;
+    }
+
+    .btn-filter {
+      font-size: 11px;
+      padding: 4px 8px;
+      margin: 1px;
+      border-radius: 999px;
+      border: 1px solid #ccc;
+      background: #fff;
+      color: #555;
+    }
+
+    .btn-filter-active {
+      border-color: var(--rosa2);
+      color: var(--rosa2);
+      background: #ffe4ef;
+    }
+
+    .small {
+      font-size: 11px;
+      color: #616161;
+    }
+
+    .table-wrapper {
+      border-radius: 10px;
+      border: 1px solid #f3c5dd;
+      max-height: 430px;
+      overflow: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    th, td {
+      padding: 6px 6px;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: var(--rosa-claro);
+      z-index: 1;
+      font-size: 12px;
+    }
+
+    tr.row-alto { background: #ffebee; }
+    tr.row-intermediario { background: #fff8e1; }
+    tr.row-baixo { background: #e8f5e9; }
+
+    .pill-risk {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      border: 1px solid transparent;
+    }
+    .pill-risk.baixo {
+      background: #e8f5e9;
+      border-color: #81c784;
+      color: #1b5e20;
+    }
+    .pill-risk.intermediario {
+      background: #fff8e1;
+      border-color: #ffb300;
+      color: #8d6e00;
+    }
+    .pill-risk.alto {
+      background: #ffebee;
+      border-color: #e53935;
+      color: #b71c1c;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 999px;
+      font-size: 10px;
+      margin: 1px 0;
+    }
+    .badge-ok {
+      background: #e8f5e9;
+      color: #1b5e20;
+    }
+    .badge-pend {
+      background: #fff8e1;
+      color: #8d6e00;
+    }
+    .badge-warn {
+      background: #ffebee;
+      color: #b71c1c;
+    }
+
+    #login-container {
+      max-width: 360px;
+      margin: 50px auto;
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px 20px 20px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      border-top: 4px solid var(--rosa2);
+    }
+
+    #login-container h2 {
+      margin: 0;
+      text-align: center;
+      color: #880e4f;
+    }
+
+    #login-container .subtitle {
+      text-align: center;
+      margin-bottom: 16px;
+      color: #555;
+    }
+
+    #login-form label {
+      display: block;
+      margin-top: 8px;
+      font-size: 13px;
+    }
+
+    #login-form input {
+      width: 100%;
+      padding: 7px 9px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      margin-top: 3px;
+      font-size: 13px;
+    }
+
+    #login-submit {
+      margin-top: 14px;
+      width: 100%;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, var(--rosa1), var(--rosa2));
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(216,27,96,0.45);
+      transition: transform 0.12s, box-shadow 0.12s, filter 0.12s;
+    }
+
+    #login-submit:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.03);
+      box-shadow: 0 6px 16px rgba(216,27,96,0.55);
+    }
+
+    #login-submit:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 8px rgba(216,27,96,0.4);
+    }
+
+    #login-error {
+      color: #d32f2f;
+      text-align: center;
+      margin-top: 10px;
+      font-size: 0.85rem;
+    }
+
+    .app-auth-hidden {
+      display: none !important;
+    }
+  </style>
+
+  <!-- Firebase auth (mantido) -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signInWithEmailAndPassword,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAg0HPhWoqbEhjybTYDfBg1AQbCbbIquaE",
+      authDomain: "gerenciador-draschwartz.firebaseapp.com",
+      projectId: "gerenciador-draschwartz",
+      storageBucket: "gerenciador-draschwartz.firebasestorage.app",
+      messagingSenderId: "283430261434",
+      appId: "1:283430261434:web:4c2681d93f99c3c1382883",
+      measurementId: "G-R7TE29MLKB"
+    };
+
+    const appFirebase = initializeApp(firebaseConfig);
+    const auth = getAuth(appFirebase);
+
+    window._auth = auth;
+    window._authFns = { onAuthStateChanged, signInWithEmailAndPassword, signOut };
+  </script>
+</head>
+
+<body>
+
+<div id="login-container">
+  <h2>Login – Pré-natal</h2>
+  <p class="subtitle">Acesse com o e-mail cadastrado pela Dra. Schwartz</p>
+
+  <form id="login-form">
+    <label for="login-email">E-mail</label>
+    <input type="email" id="login-email" autocomplete="email" required>
+
+    <label for="login-password">Senha</label>
+    <input type="password" id="login-password" autocomplete="current-password" required>
+
+    <button id="login-submit" type="submit">Entrar</button>
+  </form>
+
+  <p id="login-error" style="display:none;"></p>
+</div>
+
+<header class="app-auth-hidden">
+  <div class="logout-area">
+    <button id="logout-btn" type="button" style="display:none;">Sair</button>
+  </div>
+  <h1>
+    <span class="gestante-icon">🤰</span>
+    PRÉ-NATAL DRA SCHWARTZ
+  </h1>
+  <div class="subtitle">
+    Painel de gestantes com risco, exames e consultas conforme protocolo.
+  </div>
+  <div class="chips">
+    <span class="chip">🟢 Habitual</span>
+    <span class="chip">🟡 Interm.</span>
+    <span class="chip">🔴 Alto risco</span>
+    <span class="chip">📅 IG pela US / DUM</span>
+  </div>
+</header>
+
+<div class="container app-auth-hidden">
+
+  <!-- FORMULÁRIO -->
+  <div class="card">
+    <h2>🤰 Cadastrar / Editar Gestante</h2>
+    <form id="form-gestante">
+      <input type="hidden" id="id">
+
+      <div class="row">
+        <div class="col-6">
+          <label>Nome completo</label>
+          <input id="nome" required>
+        </div>
+
+        <div class="col-3">
+          <label>Data de nascimento</label>
+          <input id="dataNasc" type="date">
+        </div>
+
+        <div class="col-3">
+          <label>Idade</label>
+          <input id="idade" type="number" min="10" max="60">
+        </div>
+
+        <div class="col-4">
+          <label>UBS</label>
+          <input id="ubs" placeholder="Ex.: UBS Santuário">
+        </div>
+
+        <div class="col-4">
+          <label>Microárea</label>
+          <input id="microarea">
+        </div>
+
+        <div class="col-4">
+          <label>ACS</label>
+          <input id="acs">
+        </div>
+
+        <div class="col-3">
+          <label>Classificação de risco</label>
+          <select id="risco">
+            <option value="">Selecione</option>
+            <option value="baixo">Risco habitual</option>
+            <option value="intermediario">Risco intermediário</option>
+            <option value="alto">Alto risco</option>
+          </select>
+        </div>
+
+        <div class="col-3">
+          <label>DUM</label>
+          <input id="dum" type="date">
+        </div>
+
+        <div class="col-3">
+          <label>Data da 1ª US</label>
+          <input id="usData" type="date">
+        </div>
+
+        <div class="col-2">
+          <label>IG na US (sem)</label>
+          <input id="usSemanas" type="number" min="0" max="42">
+        </div>
+
+        <div class="col-2">
+          <label>IG na US (dias)</label>
+          <input id="usDias" type="number" min="0" max="6">
+        </div>
+
+        <div class="col-3">
+          <label>Última consulta</label>
+          <input id="consultaUltima" type="date">
+        </div>
+
+        <div class="col-3">
+          <label>Próxima consulta (pode ajustar)</label>
+          <input id="consultaProxima" type="date">
+        </div>
+
+        <div class="col-3">
+          <label>Consulta com obstetra (data)</label>
+          <input id="consultaObstetra" type="date">
+        </div>
+
+        <div class="col-3">
+          <label>Encaminhada / alto risco externo</label>
+          <select id="altoRiscoExterno">
+            <option value="">Não informado</option>
+            <option value="encaminhada">Encaminhada</option>
+            <option value="acompanhamento">Em acompanhamento</option>
+            <option value="nao">Não encaminhada</option>
+          </select>
+        </div>
+
+        <div class="col-3">
+          <label>Consulta alto risco (data)</label>
+          <input id="dataAltoRisco" type="date">
+        </div>
+
+        <div class="col-3">
+          <label>Nutricionista</label>
+          <select id="nutricionista">
+            <option value="">Não informado</option>
+            <option value="indicado">Indicado</option>
+            <option value="agendado">Agendado</option>
+            <option value="realizado">Realizado</option>
+          </select>
+        </div>
+
+        <div class="col-3">
+          <label>Data consulta nutricionista</label>
+          <input id="dataNutri" type="date">
+        </div>
+
+        <div class="col-3">
+          <label>DPP (calculada)</label>
+          <input id="dpp" type="date" readonly>
+        </div>
+
+        <div class="col-3">
+          <label>Swab vaginal / retal</label>
+          <select id="swab">
+            <option value="">Não solicitado</option>
+            <option value="solicitado">Solicitado</option>
+            <option value="realizado">Realizado</option>
+          </select>
+        </div>
+
+        <div class="col-3">
+          <label>Exames 1º tri</label>
+          <select id="ex1">
+            <option value="">Não solicitado</option>
+            <option value="solicitado">Solicitado</option>
+            <option value="realizado">Realizado</option>
+          </select>
+        </div>
+
+        <div class="col-3">
+          <label>Exames 2º tri / TTOG</label>
+          <select id="ex2">
+            <option value="">Não solicitado</option>
+            <option value="solicitado">Solicitado</option>
+            <option value="realizado">Realizado</option>
+          </select>
+        </div>
+
+        <div class="col-3">
+          <label>Exames 3º tri</label>
+          <select id="ex3">
+            <option value="">Não solicitado</option>
+            <option value="solicitado">Solicitado</option>
+            <option value="realizado">Realizado</option>
+          </select>
+        </div>
+
+        <div class="col-3">
+          <label>Vacinas</label>
+          <select id="vacinas">
+            <option value="">Não informado</option>
+            <option value="ok">OK / em dia</option>
+            <option value="pendente">Pendente</option>
+          </select>
+        </div>
+
+        <div class="col-3">
+          <label>Odonto</label>
+          <select id="odonto">
+            <option value="">Não informado</option>
+            <option value="ok">Avaliada / tratada</option>
+            <option value="pendente">Pendente</option>
+          </select>
+        </div>
+
+        <div class="col-3">
+          <label>Teste rápido (HIV/Sífilis/HB)</label>
+          <select id="testeRapido">
+            <option value="">Não informado</option>
+            <option value="nao realizado">Não realizado</option>
+            <option value="solicitado">Solicitado</option>
+            <option value="realizado">Realizado</option>
+          </select>
+        </div>
+
+        <div class="col-3">
+          <label>Teste da mãezinha</label>
+          <select id="testeMae">
+            <option value="">Não informado</option>
+            <option value="nao realizado">Não realizado</option>
+            <option value="solicitado">Solicitado</option>
+            <option value="realizado">Realizado</option>
+          </select>
+        </div>
+
+        <div class="col-3">
+          <label>Preventivo</label>
+          <select id="preventivo">
+            <option value="">Não informado</option>
+            <option value="nao realizado">Não realizado</option>
+            <option value="solicitado">Solicitado</option>
+            <option value="realizado">Realizado / em dia</option>
+          </select>
+        </div>
+
+        <!-- TESTES RÁPIDOS DETALHADOS (sorologias) -->
+        <div class="col-12">
+          <hr style="margin:12px 0;">
+          <h3 style="margin:0 0 6px; font-size:15px; color:#880e4f;">
+            🧪 Testes rápidos – sorologias
+          </h3>
+        </div>
+
+        <div class="col-6">
+          <label>HIV – teste rápido</label>
+          <select id="hivStatus">
+            <option value="">Não realizado / não informado</option>
+            <option value="nao-reagente">Não reagente</option>
+            <option value="reagente">Reagente</option>
+          </select>
+          <input id="hivObs" placeholder="Se reagente, especificar (ex.: teste rápido reagente, aguardando confirmação)">
+        </div>
+
+        <div class="col-6">
+          <label>Sífilis – teste rápido / VDRL</label>
+          <select id="sifilisStatus">
+            <option value="">Não realizado / não informado</option>
+            <option value="nao-reagente">Não reagente</option>
+            <option value="reagente">Reagente</option>
+          </select>
+          <input id="sifilisObs" placeholder="Se reagente, especificar (ex.: VDRL 1:8 + TPHA reagente)">
+        </div>
+
+        <div class="col-6">
+          <label>Hepatite B (HBsAg)</label>
+          <select id="hbvStatus">
+            <option value="">Não realizado / não informado</option>
+            <option value="nao-reagente">Não reagente</option>
+            <option value="reagente">Reagente</option>
+          </select>
+          <input id="hbvObs" placeholder="Se reagente, especificar (ex.: HBsAg reagente)">
+        </div>
+
+        <div class="col-6">
+          <label>Hepatite C (Anti-HCV)</label>
+          <select id="hcvStatus">
+            <option value="">Não realizado / não informado</option>
+            <option value="nao-reagente">Não reagente</option>
+            <option value="reagente">Reagente</option>
+          </select>
+          <input id="hcvObs" placeholder="Se reagente, especificar (ex.: Anti-HCV reagente)">
+        </div>
+
+        <!-- TESTES RÁPIDOS POR ROTINA (1ª, 2ª, 3ª) -->
+        <div class="col-12">
+          <hr style="margin:12px 0 6px;">
+          <label><strong>Testes rápidos por rotina (R / NR)</strong></label>
+          <div class="small">
+            Selecione <b>R</b> (reagente) ou <b>NR</b> (não reagente) para cada rotina e infecção.
+          </div>
+        </div>
+
+        <!-- 1ª rotina -->
+        <div class="col-12">
+          <div class="small"><strong>1ª rotina</strong></div>
+          <div class="row">
+            <div class="col-3">
+              <label>HIV</label>
+              <select id="tr1_hiv">
+                <option value="">—</option>
+                <option value="NR">NR – não reagente</option>
+                <option value="R">R – reagente</option>
+              </select>
+            </div>
+            <div class="col-3">
+              <label>Sífilis</label>
+              <select id="tr1_sifilis">
+                <option value="">—</option>
+                <option value="NR">NR – não reagente</option>
+                <option value="R">R – reagente</option>
+              </select>
+            </div>
+            <div class="col-3">
+              <label>Hep. B</label>
+              <select id="tr1_hbv">
+                <option value="">—</option>
+                <option value="NR">NR – não reagente</option>
+                <option value="R">R – reagente</option>
+              </select>
+            </div>
+            <div class="col-3">
+              <label>Hep. C</label>
+              <select id="tr1_hcv">
+                <option value="">—</option>
+                <option value="NR">NR – não reagente</option>
+                <option value="R">R – reagente</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2ª rotina -->
+        <div class="col-12">
+          <div class="small"><strong>2ª rotina</strong></div>
+          <div class="row">
+            <div class="col-3">
+              <label>HIV</label>
+              <select id="tr2_hiv">
+                <option value="">—</option>
+                <option value="NR">NR – não reagente</option>
+                <option value="R">R – reagente</option>
+              </select>
+            </div>
+            <div class="col-3">
+              <label>Sífilis</label>
+              <select id="tr2_sifilis">
+                <option value="">—</option>
+                <option value="NR">NR – não reagente</option>
+                <option value="R">R – reagente</option>
+              </select>
+            </div>
+            <div class="col-3">
+              <label>Hep. B</label>
+              <select id="tr2_hbv">
+                <option value="">—</option>
+                <option value="NR">NR – não reagente</option>
+                <option value="R">R – reagente</option>
+              </select>
+            </div>
+            <div class="col-3">
+              <label>Hep. C</label>
+              <select id="tr2_hcv">
+                <option value="">—</option>
+                <option value="NR">NR – não reagente</option>
+                <option value="R">R – reagente</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3ª rotina -->
+        <div class="col-12">
+          <div class="small"><strong>3ª rotina</strong></div>
+          <div class="row">
+            <div class="col-3">
+              <label>HIV</label>
+              <select id="tr3_hiv">
+                <option value="">—</option>
+                <option value="NR">NR – não reagente</option>
+                <option value="R">R – reagente</option>
+              </select>
+            </div>
+            <div class="col-3">
+              <label>Sífilis</label>
+              <select id="tr3_sifilis">
+                <option value="">—</option>
+                <option value="NR">NR – não reagente</option>
+                <option value="R">R – reagente</option>
+              </select>
+            </div>
+            <div class="col-3">
+              <label>Hep. B</label>
+              <select id="tr3_hbv">
+                <option value="">—</option>
+                <option value="NR">NR – não reagente</option>
+                <option value="R">R – reagente</option>
+              </select>
+            </div>
+            <div class="col-3">
+              <label>Hep. C</label>
+              <select id="tr3_hcv">
+                <option value="">—</option>
+                <option value="NR">NR – não reagente</option>
+                <option value="R">R – reagente</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Condições, alergias, justificativa e observações -->
+        <div class="col-6">
+          <label>Condições de saúde / comorbidades</label>
+          <textarea id="condicoes" placeholder="Ex.: HAS, DM2, cardiopatia, uso de medicação contínua..."></textarea>
+        </div>
+
+        <div class="col-6">
+          <label>Alergias</label>
+          <textarea id="alergias" placeholder="Ex.: alergia a penicilina, dipirona, alimentos..."></textarea>
+        </div>
+
+        <div class="col-12">
+          <label>Justificativa da estratificação de risco</label>
+          <textarea id="justificativa" placeholder="Ex.: HAS crônica, DMG prévia, idade ≥ 35 anos, cesáreas prévias, etc."></textarea>
+        </div>
+
+        <div class="col-12">
+          <label>Observações da consulta (histórico)</label>
+          <div id="obsHistorico" class="small" style="border:1px solid #f3c5dd;border-radius:8px;padding:6px;min-height:40px;background:#fff7fb;margin-bottom:6px;">
+            <!-- Histórico de observações aparece aqui após salvar/adicionar. -->
+          </div>
+          <textarea id="novaObservacao" placeholder="Escreva uma nova observação desta consulta."></textarea>
+          <button type="button" class="btn-outline" style="margin-top:6px;" onclick="adicionarObservacao()">➕ Adicionar observação com data de hoje</button>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:10px;">
+        <div class="col-6">
+          <button type="submit" class="btn-primary">💾 Salvar gestante</button>
+        </div>
+        <div class="col-6">
+          <button type="button" class="btn-outline" onclick="limparFormulario()">🧹 Limpar formulário</button>
+        </div>
+      </div>
+
+      <div class="small" style="margin-top:6px;">
+        IG é calculada priorizando a 1ª US (semanas + dias na data do exame).
+        Na ausência de US informada, utiliza a DUM para estimativa.
+      </div>
+    </form>
+  </div>
+
+  <!-- LISTA / PAINEL -->
+  <div class="card">
+    <div class="row" style="align-items:center; margin-bottom:8px;">
+      <div class="col-6">
+        <h2>📋 Gestantes cadastradas</h2>
+      </div>
+      <div class="col-6" style="text-align:right;">
+        <button id="f-todas" class="btn-filter" type="button" onclick="setFiltro('todas')">Todas</button>
+        <button id="f-atraso" class="btn-filter" type="button" onclick="setFiltro('atraso')">Consultas atrasadas</button>
+        <button id="f-risco" class="btn-filter" type="button" onclick="setFiltro('risco')">Alto/Intermediário</button>
+        <button class="btn-outline btn-small" onclick="exportarCSV()">📤 CSV</button>
+        <button class="btn-outline btn-small" onclick="exportarPDFGeral()">📄 PDF geral</button>
+      </div>
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Gestante / UBS</th>
+            <th>IG hoje / DPP</th>
+            <th>Risco</th>
+            <th>Exames / Swab / Vacinas / Odonto / Testes rápidos</th>
+            <th>Consultas</th>
+            <th>Alertas (exames + janelas)</th>
+            <th>Condições / Alergias / Justificativa</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="tabela-gestantes"></tbody>
+      </table>
+    </div>
+
+    <div class="small" style="margin-top:6px;">
+      Lista ordenada por: consulta atrasada ⟶ maior risco ⟶ maior IG.
+      Alertas por janelas: 1º tri, US morfológica 20–26s, TTOG/2º tri 24–28s,
+      exames 3º tri 32–36s, US 34–37s, swab 35–37s.
+    </div>
+  </div>
+
+  <!-- BACKUP (SEM QR CODE) -->
+  <div class="card">
+    <h2>📦 Backup</h2>
+    <div class="small">
+      Para usar em outro aparelho, exporte o backup em JSON neste dispositivo
+      e depois importe no outro aparelho usando o mesmo app.
+    </div>
+    <div class="row" style="margin-top:8px;">
+      <div class="col-6">
+        <button class="btn-outline" type="button" onclick="exportarBackupJSON()">📤 Exportar backup (.json)</button>
+      </div>
+      <div class="col-6">
+        <input type="file" id="inputBackup" accept=".json" style="display:none" onchange="importarBackupJSON(event)">
+        <button class="btn-outline" type="button" onclick="document.getElementById('inputBackup').click()">📥 Importar backup (.json)</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="small" style="text-align:center; margin-top:8px; color:#777;">
+    Desenvolvido por Dra. Fernanda Schwartz.
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = "prenatal_dra_schwartz_v6";
+  let filtroAtual = "todas";
+
+  function carregarGestantes() {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return [];
+    try { return JSON.parse(raw); } catch(e) { console.error(e); return []; }
+  }
+
+  function salvarGestantes(lista) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(lista));
+  }
+
+  function calcularIdade(dataNascStr) {
+    if (!dataNascStr) return "";
+    const d = new Date(dataNascStr);
+    if (isNaN(d)) return "";
+    const hoje = new Date();
+    let idade = hoje.getFullYear() - d.getFullYear();
+    const m = hoje.getMonth() - d.getMonth();
+    if (m < 0 || (m === 0 && hoje.getDate() < d.getDate())) idade--;
+    return idade;
+  }
+
+  // === IG CORRIGIDA (US / DUM) ===
+  function calcularIG(dum, usData, usSemanas, usDias) {
+    const hoje = new Date();
+    hoje.setHours(0,0,0,0);
+
+    // Prioriza 1ª US
+    if (usData && usSemanas !== "" && usSemanas != null) {
+      const ref = new Date(usData + "T00:00:00");
+      if (isNaN(ref)) return null;
+      const w = parseInt(usSemanas || "0", 10);
+      const d = parseInt(usDias || "0", 10);
+      if (isNaN(w) || isNaN(d)) return null;
+
+      const diffDias = Math.round((hoje - ref) / 86400000);
+      const total = w * 7 + d + diffDias;
+      if (total < 0) return null;
+
+      const semanas = Math.floor(total / 7);
+      const dias = total % 7;
+      return { semanas, dias, total, metodo: "US" };
+    }
+
+    if (!dum) return null;
+    const d0 = new Date(dum + "T00:00:00");
+    if (isNaN(d0)) return null;
+
+    const diffDias = Math.round((hoje - d0) / 86400000);
+    if (diffDias < 0) return null;
+
+    const semanas = Math.floor(diffDias / 7);
+    const dias = diffDias % 7;
+    return { semanas, dias, total: diffDias, metodo: "DUM" };
+  }
+
+  function estimarDPP(dum, usData, usSemanas, usDias) {
+    // Se houver US com IG, podemos corrigir, mas para simplificar mantemos DPP pela DUM
+    if (!dum) return "";
+    const d = new Date(dum + "T00:00:00");
+    if (isNaN(d)) return "";
+    d.setDate(d.getDate() + 280);
+    return d.toISOString().slice(0,10);
+  }
+
+  function badgeExame(status, label) {
+    if (!status) return `<span class="badge badge-pend">${label}: não solicitado</span>`;
+    if (status === "realizado") return `<span class="badge badge-ok">${label}: realizado</span>`;
+    if (status === "solicitado") return `<span class="badge badge-pend">${label}: solicitado</span>`;
+    return `<span class="badge badge-pend">${label}: ${status}</span>`;
+  }
+
+  function badgeOkPend(valor, okLabel, pendLabel) {
+    if (!valor) return "";
+    if (valor === "ok") return `<span class="badge badge-ok">${okLabel}</span>`;
+    if (valor === "pendente") return `<span class="badge badge-pend">${pendLabel}</span>`;
+    return `<span class="badge badge-pend">${valor}</span>`;
+  }
+
+  function badgeTesteRapido(status, label, obs) {
+    if (!status) return "";
+    let texto = "";
+    if (status === "nao-reagente") texto = `${label}: NR (não reagente)`;
+    else if (status === "reagente") texto = `${label}: R (reagente)`;
+    if (obs) texto += ` – ${obs}`;
+    return `<span class="badge ${status === "reagente" ? "badge-warn" : "badge-ok"}">${texto}</span>`;
+  }
+
+  function gerarAlertasExames(ig, ex1, ex2, ex3, swab) {
+    if (!ig) return "";
+    const s = ig.semanas;
+    const alertas = [];
+    if (s >= 11 && s <= 13 && !ex1) alertas.push("Solicitar exames 1º tri");
+    if (s >= 20 && s <= 26 && !ex2) alertas.push("US morfológica / TTOG");
+    if (s >= 24 && s <= 28 && !ex2) alertas.push("TTOG / exames 2º tri");
+    if (s >= 32 && s <= 36 && !ex3) alertas.push("Exames 3º tri");
+    if (s >= 34 && s <= 37 && !swab) alertas.push("US 34–37s");
+    if (s >= 35 && s <= 37 && !swab) alertas.push("Swab vaginal/retal 35–37s");
+    return alertas.map(a => `<span class="badge badge-warn">${a}</span>`).join("<br>");
+  }
+
+  function limparFormulario() {
+    document.getElementById("form-gestante").reset();
+    document.getElementById("id").value = "";
+    document.getElementById("obsHistorico").innerHTML = "";
+    document.getElementById("dpp").value = "";
+  }
+
+  function preencherFormulario(g) {
+    document.getElementById("id").value = g.id || "";
+    document.getElementById("nome").value = g.nome || "";
+    document.getElementById("dataNasc").value = g.dataNasc || "";
+    document.getElementById("idade").value = g.idade || "";
+    document.getElementById("ubs").value = g.ubs || "";
+    document.getElementById("microarea").value = g.microarea || "";
+    document.getElementById("acs").value = g.acs || "";
+    document.getElementById("risco").value = g.risco || "";
+    document.getElementById("dum").value = g.dum || "";
+    document.getElementById("usData").value = g.usData || "";
+    document.getElementById("usSemanas").value = g.usSemanas || "";
+    document.getElementById("usDias").value = g.usDias || "";
+    document.getElementById("consultaUltima").value = g.consultaUltima || "";
+    document.getElementById("consultaProxima").value = g.consultaProxima || "";
+    document.getElementById("consultaObstetra").value = g.consultaObstetra || "";
+    document.getElementById("altoRiscoExterno").value = g.altoRiscoExterno || "";
+    document.getElementById("dataAltoRisco").value = g.dataAltoRisco || "";
+    document.getElementById("nutricionista").value = g.nutricionista || "";
+    document.getElementById("dataNutri").value = g.dataNutri || "";
+    document.getElementById("swab").value = g.swab || "";
+    document.getElementById("ex1").value = g.ex1 || "";
+    document.getElementById("ex2").value = g.ex2 || "";
+    document.getElementById("ex3").value = g.ex3 || "";
+    document.getElementById("vacinas").value = g.vacinas || "";
+    document.getElementById("odonto").value = g.odonto || "";
+    document.getElementById("testeRapido").value = g.testeRapido || "";
+    document.getElementById("testeMae").value = g.testeMae || "";
+    document.getElementById("preventivo").value = g.preventivo || "";
+    document.getElementById("condicoes").value = g.condicoes || "";
+    document.getElementById("alergias").value = g.alergias || "";
+    document.getElementById("justificativa").value = g.justificativa || "";
+    document.getElementById("hivStatus").value = g.hivStatus || "";
+    document.getElementById("hivObs").value = g.hivObs || "";
+    document.getElementById("sifilisStatus").value = g.sifilisStatus || "";
+    document.getElementById("sifilisObs").value = g.sifilisObs || "";
+    document.getElementById("hbvStatus").value = g.hbvStatus || "";
+    document.getElementById("hbvObs").value = g.hbvObs || "";
+    document.getElementById("hcvStatus").value = g.hcvStatus || "";
+    document.getElementById("hcvObs").value = g.hcvObs || "";
+
+    // Rotinas (podem não existir em registros antigos)
+    document.getElementById("tr1_hiv").value = g.tr1_hiv || "";
+    document.getElementById("tr1_sifilis").value = g.tr1_sifilis || "";
+    document.getElementById("tr1_hbv").value = g.tr1_hbv || "";
+    document.getElementById("tr1_hcv").value = g.tr1_hcv || "";
+
+    document.getElementById("tr2_hiv").value = g.tr2_hiv || "";
+    document.getElementById("tr2_sifilis").value = g.tr2_sifilis || "";
+    document.getElementById("tr2_hbv").value = g.tr2_hbv || "";
+    document.getElementById("tr2_hcv").value = g.tr2_hcv || "";
+
+    document.getElementById("tr3_hiv").value = g.tr3_hiv || "";
+    document.getElementById("tr3_sifilis").value = g.tr3_sifilis || "";
+    document.getElementById("tr3_hbv").value = g.tr3_hbv || "";
+    document.getElementById("tr3_hcv").value = g.tr3_hcv || "";
+
+    // DPP calculada
+    const dpp = g.dpp || estimarDPP(g.dum, g.usData, g.usSemanas, g.usDias);
+    document.getElementById("dpp").value = dpp || "";
+
+    const histElem = document.getElementById("obsHistorico");
+    if (histElem) {
+      histElem.innerHTML = (g.observacoes || "").replace(/\n/g, "<br>");
+    }
+  }
+
+  function removerGestante(id) {
+    if (!confirm("Remover esta gestante?")) return;
+    const lista = carregarGestantes().filter(g => g.id !== id);
+    salvarGestantes(lista);
+    renderizarTabela();
+  }
+
+  function resumoTestesIndividuais(g) {
+    const partes = [];
+    function add(label, status, obs) {
+      if (!status) return;
+      if (status === "nao-reagente") partes.push(`${label}: não reagente`);
+      else if (status === "reagente") {
+        let t = `${label}: reagente`;
+        if (obs) t += " (" + obs.replace(/[\r\n]+/g," ") + ")`;
+        partes.push(t);
+      }
+    }
+    add("HIV", g.hivStatus, g.hivObs);
+    add("Sífilis", g.sifilisStatus, g.sifilisObs);
+    add("Hepatite B", g.hbvStatus, g.hbvObs);
+    add("Hepatite C", g.hcvStatus, g.hcvObs);
+    if (!partes.length) return "Não realizado / não informado.";
+    return partes.join("<br>");
+  }
+
+  function resumoTestesRotinas(g) {
+    const linhas = [];
+
+    function linha(titulo, prefix) {
+      const campos = [];
+      const vHiv = g[prefix + "_hiv"];
+      const vSif = g[prefix + "_sifilis"];
+      const vHbv = g[prefix + "_hbv"];
+      const vHcv = g[prefix + "_hcv"];
+
+      function rotLabel(label, v) {
+        if (!v) return;
+        if (v === "R") campos.push(`${label}: R`);
+        else if (v === "NR") campos.push(`${label}: NR`);
+      }
+      rotLabel("HIV", vHiv);
+      rotLabel("Sífilis", vSif);
+      rotLabel("Hep. B", vHbv);
+      rotLabel("Hep. C", vHcv);
+
+      if (campos.length) {
+        linhas.push(`${titulo}: ` + campos.join(" · "));
+      }
+    }
+
+    linha("1ª rotina", "tr1");
+    linha("2ª rotina", "tr2");
+    linha("3ª rotina", "tr3");
+
+    if (!linhas.length) return "";
+    return linhas.join("<br>");
+  }
+
+  function abrirResumoPDF(id) {
+    const lista = carregarGestantes();
+    const g = lista.find(x => x.id === id);
+    if (!g) return;
+
+    const ig = calcularIG(g.dum, g.usData, g.usSemanas, g.usDias);
+    const dpp = estimarDPP(g.dum, g.usData, g.usSemanas, g.usDias);
+    const igTexto = ig ? `${ig.semanas}s ${ig.dias}d (${ig.metodo})` : "—";
+    const idadeCalc = g.dataNasc ? calcularIdade(g.dataNasc) : "";
+    const testesHtml = resumoTestesIndividuais(g);
+    const rotinasHtml = resumoTestesRotinas(g);
+
+    const win = window.open("", "_blank");
+    const html = `
+      <html>
+      <head>
+        <meta charset="UTF-8">
+        <title>Pré-natal – ${g.nome}</title>
+        <style>
+          body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; padding: 20px; }
+          h1 { font-size: 20px; margin-bottom: 4px; }
+          h2 { font-size: 16px; margin-top: 16px; }
+          table { width: 100%; border-collapse: collapse; font-size: 13px; }
+          td { padding: 4px; border-bottom: 1px solid #ddd; vertical-align: top; }
+          .label { font-weight: 600; width: 180px; }
+        </style>
+      </head>
+      <body>
+        <h1>Pré-natal – Dra. Schwartz</h1>
+        <div>Resumo individual da gestante</div>
+
+        <h2>1. Identificação</h2>
+        <table>
+          <tr><td class="label">Nome</td><td>${g.nome || ""}</td></tr>
+          <tr><td class="label">Data de nascimento</td><td>${g.dataNasc || ""} ${idadeCalc ? " ("+idadeCalc+" anos)" : ""}</td></tr>
+          <tr><td class="label">Idade (campo)</td><td>${g.idade || ""}</td></tr>
+          <tr><td class="label">UBS / Microárea</td><td>${g.ubs || ""} ${g.microarea ? " · Microárea " + g.microarea : ""}</td></tr>
+          <tr><td class="label">ACS</td><td>${g.acs || ""}</td></tr>
+        </table>
+
+        <h2>2. Gestação</h2>
+        <table>
+          <tr><td class="label">Risco</td><td>${g.risco === "baixo" ? "Risco habitual" : (g.risco === "intermediario" ? "Risco intermediário" : (g.risco === "alto" ? "Alto risco" : "Não informado"))}</td></tr>
+          <tr><td class="label">DUM</td><td>${g.dum || ""}</td></tr>
+          <tr><td class="label">1ª US</td><td>${g.usData || ""} ${g.usSemanas ? " (" + g.usSemanas + "s" + (g.usDias ? " " + g.usDias + "d" : "") + ")" : ""}</td></tr>
+          <tr><td class="label">IG hoje</td><td>${igTexto}</td></tr>
+          <tr><td class="label">DPP</td><td>${dpp || ""}</td></tr>
+        </table>
+
+        <h2>3. Consultas</h2>
+        <table>
+          <tr><td class="label">Última consulta</td><td>${g.consultaUltima || ""}</td></tr>
+          <tr><td class="label">Próxima consulta</td><td>${g.consultaProxima || ""}</td></tr>
+          <tr><td class="label">Consulta com obstetra</td><td>${g.consultaObstetra || ""}</td></tr>
+          <tr><td class="label">Encaminhada alto risco</td><td>${g.altoRiscoExterno || ""}</td></tr>
+          <tr><td class="label">Data consulta alto risco</td><td>${g.dataAltoRisco || ""}</td></tr>
+          <tr><td class="label">Nutricionista</td><td>${g.nutricionista || ""}</td></tr>
+          <tr><td class="label">Data consulta nutri</td><td>${g.dataNutri || ""}</td></tr>
+        </table>
+
+        <h2>4. Exames, vacinas, odonto e testes rápidos</h2>
+        <table>
+          <tr><td class="label">Exames 1º tri</td><td>${g.ex1 || ""}</td></tr>
+          <tr><td class="label">Exames 2º tri / TTOG</td><td>${g.ex2 || ""}</td></tr>
+          <tr><td class="label">Exames 3º tri</td><td>${g.ex3 || ""}</td></tr>
+          <tr><td class="label">Swab</td><td>${g.swab || ""}</td></tr>
+          <tr><td class="label">Vacinas</td><td>${g.vacinas || ""}</td></tr>
+          <tr><td class="label">Odonto</td><td>${g.odonto || ""}</td></tr>
+          <tr><td class="label">Testes rápidos – sorologias</td><td>${testesHtml}</td></tr>
+          <tr><td class="label">Testes rápidos – 1ª/2ª/3ª rotina</td><td>${rotinasHtml || "Não informado."}</td></tr>
+        </table>
+
+        <h2>5. Condições de saúde e alergias</h2>
+        <table>
+          <tr><td class="label">Condições</td><td>${(g.condicoes || "").replace(/\n/g,"<br>")}</td></tr>
+          <tr><td class="label">Alergias</td><td>${(g.alergias || "").replace(/\n/g,"<br>")}</td></tr>
+        </table>
+
+        <h2>6. Justificativa do risco</h2>
+        <div>${(g.justificativa || "").replace(/\n/g,"<br>")}</div>
+
+        <h2>7. Observações da consulta</h2>
+        <div>${(g.observacoes || "Sem observações registradas.").replace(/\n/g,"<br>")}</div>
+
+        <p style="margin-top:18px; font-size:12px; color:#777;">
+          Gerado automaticamente no app PRÉ-NATAL DRA SCHWARTZ.
+        </p>
+        <p style="margin-top:4px; font-size:12px; color:#777;">
+          Desenvolvido por Dra. Fernanda Schwartz.
+        </p>
+      </body>
+      </html>
+    `;
+    win.document.write(html);
+    win.document.close();
+  }
+
+  // === Relatório geral com IG, risco e testes rápidos ===
+  function resumoTestesGeral(g) {
+    const partes = [];
+    function add(label, status, obs) {
+      if (!status) return;
+      if (status === "nao-reagente") partes.push(`${label}: não reagente`);
+      else if (status === "reagente") {
+        let t = `${label}: reagente`;
+        if (obs) t += " (" + obs.replace(/[\r\n]+/g," ") + ")`;
+        partes.push(t);
+      }
+    }
+    add("HIV", g.hivStatus, g.hivObs);
+    add("Sífilis", g.sifilisStatus, g.sifilisObs);
+    add("Hep. B", g.hbvStatus, g.hbvObs);
+    add("Hep. C", g.hcvStatus, g.hcvObs);
+
+    const base = partes.length ? "Sorologias: " + partes.join("; ") : "";
+    const rot = resumoTestesRotinas(g);
+    if (rot) {
+      const rotLinha = rot.replace(/<br>/g, " | ");
+      return base ? base + " | Rotinas: " + rotLinha : "Rotinas: " + rotLinha;
+    }
+    return base;
+  }
+
+  function exportarPDFGeral() {
+    const lista = carregarGestantes();
+    if (!lista || !lista.length) {
+      alert("Nenhuma gestante cadastrada para gerar o relatório.");
+      return;
+    }
+
+    const grupos = {
+      alto: [],
+      intermediario: [],
+      habitual: [],
+      outro: []
+    };
+
+    lista.forEach(g => {
+      if (!g) return;
+      const ig = calcularIG(g.dum, g.usData, g.usSemanas, g.usDias);
+      const dpp = estimarDPP(g.dum, g.usData, g.usSemanas, g.usDias);
+      const risco = (g.risco || "").toLowerCase();
+
+      const item = {
+        nome: g.nome || "",
+        ubs: g.ubs || "",
+        microarea: g.microarea || "",
+        acs: g.acs || "",
+        risco: risco || "não informado",
+        igTexto: ig ? (ig.semanas + "s " + ig.dias + "d (" + ig.metodo + ")") : "—",
+        dpp: dpp || "—",
+        dum: g.dum || "",
+        usData: g.usData || "",
+        usSemanas: g.usSemanas || "",
+        usDias: g.usDias || "",
+        consultaUltima: g.consultaUltima || "",
+        consultaProxima: g.consultaProxima || "",
+        vacinas: g.vacinas || "",
+        odonto: g.odonto || "",
+        condicoes: g.condicoes || "",
+        alergias: g.alergias || "",
+        hivStatus: g.hivStatus || "",
+        hivObs: g.hivObs || "",
+        sifilisStatus: g.sifilisStatus || "",
+        sifilisObs: g.sifilisObs || "",
+        hbvStatus: g.hbvStatus || "",
+        hbvObs: g.hbvObs || "",
+        hcvStatus: g.hcvStatus || "",
+        hcvObs: g.hcvObs || "",
+        tr1_hiv: g.tr1_hiv || "",
+        tr1_sifilis: g.tr1_sifilis || "",
+        tr1_hbv: g.tr1_hbv || "",
+        tr1_hcv: g.tr1_hcv || "",
+        tr2_hiv: g.tr2_hiv || "",
+        tr2_sifilis: g.tr2_sifilis || "",
+        tr2_hbv: g.tr2_hbv || "",
+        tr2_hcv: g.tr2_hcv || "",
+        tr3_hiv: g.tr3_hiv || "",
+        tr3_sifilis: g.tr3_sifilis || "",
+        tr3_hbv: g.tr3_hbv || "",
+        tr3_hcv: g.tr3_hcv || ""
+      };
+
+      if (risco === "alto") grupos.alto.push(item);
+      else if (risco === "intermediario" || risco === "intermediária") grupos.intermediario.push(item);
+      else if (risco === "baixo" || risco === "habitual") grupos.habitual.push(item);
+      else grupos.outro.push(item);
+    });
+
+    function totalDias(igTexto) {
+      if (!igTexto || igTexto === "—") return -1;
+      const m = igTexto.match(/(\d+)s\s+(\d+)d/);
+      if (!m) return -1;
+      const s = parseInt(m[1], 10) || 0;
+      const d = parseInt(m[2], 10) || 0;
+      return s * 7 + d;
+    }
+
+    Object.keys(grupos).forEach(k => {
+      grupos[k].sort((a, b) => totalDias(b.igTexto) - totalDias(a.igTexto));
+    });
+
+    const hoje = new Date();
+    const hojeStr = hoje.toISOString().slice(0,10).split("-").reverse().join("/");
+
+    let htmlRel = `
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Relatório Geral de Gestantes</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    margin: 20px;
+    color: #111827;
+  }
+  h1 {
+    margin: 0 0 4px;
+    font-size: 20px;
+  }
+  h2 {
+    margin: 18px 0 4px;
+    font-size: 16px;
+  }
+  .subtitulo {
+    font-size: 12px;
+    color: #4b5563;
+    margin-bottom: 10px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+    margin-bottom: 10px;
+  }
+  th, td {
+    border: 1px solid #e5e7eb;
+    padding: 4px 6px;
+    vertical-align: top;
+  }
+  th {
+    background: #f3f4f6;
+    font-weight: 600;
+  }
+  .grupo-vazio {
+    font-size: 11px;
+    color: #6b7280;
+    margin-bottom: 8px;
+  }
+  .rodape {
+    margin-top: 16px;
+    font-size: 11px;
+    color: #6b7280;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<h1>Relatório geral de gestantes</h1>
+<div class="subtitulo">Data: ${hojeStr} – IG calculada para a data de hoje.</div>
+`;
+
+    function montarTabela(titulo, listaGrupo) {
+      if (!listaGrupo.length) {
+        htmlRel += `<h2>${titulo}</h2><div class="grupo-vazio">Nenhuma gestante neste grupo.</div>`;
+        return;
+      }
+      htmlRel += `<h2>${titulo} (${listaGrupo.length})</h2>`;
+      htmlRel += `
+<table>
+  <thead>
+    <tr>
+      <th>Nome / UBS</th>
+      <th>IG hoje / DPP</th>
+      <th>DUM / 1ª US</th>
+      <th>Microárea / ACS</th>
+      <th>Testes rápidos / Cond./Alergias</th>
+      <th>Vacinas / Odonto</th>
+      <th>Consultas</th>
+    </tr>
+  </thead>
+  <tbody>
+`;
+      listaGrupo.forEach(g => {
+        const dppBr = g.dpp && g.dpp !== "—"
+          ? g.dpp.split("-").reverse().join("/")
+          : "—";
+        const dumBr = g.dum ? g.dum.split("-").reverse().join("/") : "";
+        const usBr = g.usData ? g.usData.split("-").reverse().join("/") : "";
+        const usTxt = g.usData
+          ? (usBr + (g.usSemanas ? ` (${g.usSemanas}s${g.usDias ? " "+g.usDias+"d" : ""})` : ""))
+          : "—";
+
+        const consultasTxt = [
+          g.consultaUltima ? ("Últ.: " + g.consultaUltima) : "",
+          g.consultaProxima ? ("Próx.: " + g.consultaProxima) : ""
+        ].filter(Boolean).join("<br>");
+
+        const testesTxt = resumoTestesGeral(g);
+
+        htmlRel += `
+    <tr>
+      <td><strong>${g.nome}</strong><br>${g.ubs || ""}</td>
+      <td>${g.igTexto}<br>DPP: ${dppBr}</td>
+      <td>DUM: ${dumBr || "—"}<br>US: ${usTxt}</td>
+      <td>${g.microarea || ""}<br>${g.acs || ""}</td>
+      <td>${testesTxt ? testesTxt + "<br>" : ""}${g.condicoes || ""}<br><em>${g.alergias || ""}</em></td>
+      <td>${g.vacinas || ""}<br>${g.odonto || ""}</td>
+      <td>${consultasTxt || "—"}</td>
+    </tr>
+`;
+      });
+
+      htmlRel += `
+  </tbody>
+</table>
+`;
+    }
+
+    montarTabela("Alto risco", grupos.alto);
+    montarTabela("Risco intermediário", grupos.intermediario);
+    montarTabela("Risco habitual", grupos.habitual);
+    if (grupos.outro.length) {
+      montarTabela("Sem risco definido / outro", grupos.outro);
+    }
+
+    htmlRel += `
+<p class="rodape">
+  Desenvolvido por Dra. Fernanda Schwartz.
+</p>
+</body>
+</html>
+`;
+
+    const novaJanela = window.open("", "_blank");
+    if (!novaJanela) {
+      alert("Bloqueio de pop-up: permita pop-ups para visualizar o relatório.");
+      return;
+    }
+    novaJanela.document.open();
+    novaJanela.document.write(htmlRel);
+    novaJanela.document.close();
+  }
+
+  function renderizarTabela() {
+    const corpo = document.getElementById("tabela-gestantes");
+    corpo.innerHTML = "";
+    const lista = carregarGestantes();
+    const hoje = new Date();
+    hoje.setHours(0,0,0,0);
+    const hojeNum = hoje.getTime();
+
+    lista.forEach(g => { g.ig = calcularIG(g.dum, g.usData, g.usSemanas, g.usDias); });
+
+    lista.sort((a,b) => {
+      const aProx = a.consultaProxima ? new Date(a.consultaProxima).getTime() : Infinity;
+      const bProx = b.consultaProxima ? new Date(b.consultaProxima).getTime() : Infinity;
+      const aAtraso = (aProx < hojeNum) ? 1 : 0;
+      const bAtraso = (bProx < hojeNum) ? 1 : 0;
+      if (aAtraso !== bAtraso) return bAtraso - aAtraso;
+
+      const prioridadeRisco = { "alto": 3, "intermediario": 2, "baixo": 1, "": 0, null: 0 };
+      const rA = prioridadeRisco[a.risco] || 0;
+      const rB = prioridadeRisco[b.risco] || 0;
+      if (rA !== rB) return rB - rA;
+
+      const igA = a.ig ? a.ig.total : -1;
+      const igB = b.ig ? b.ig.total : -1;
+      return igB - igA;
+    });
+
+    lista.forEach(g => {
+      const ig = g.ig;
+      const dpp = g.dpp || estimarDPP(g.dum, g.usData, g.usSemanas, g.usDias);
+      const risco = g.risco || "";
+      const classeLinha = risco ? "row-" + risco : "";
+
+      const proxNum = g.consultaProxima ? new Date(g.consultaProxima).getTime() : Infinity;
+      const hoje2 = new Date();
+      hoje2.setHours(0,0,0,0);
+      const atrasada = proxNum < hoje2.getTime();
+
+      if (filtroAtual === "atraso" && !atrasada) return;
+      if (filtroAtual === "risco" && !(risco === "alto" || risco === "intermediario")) return;
+
+      let textoIG = "—";
+      if (ig) textoIG = `${ig.semanas}s ${ig.dias}d (${ig.metodo})`;
+
+      const consultaProximaTxt = g.consultaProxima || "";
+      let textoConsulta = "";
+      if (g.consultaUltima) textoConsulta += "Última: " + g.consultaUltima + "<br>";
+      if (consultaProximaTxt) {
+        const dataProx = new Date(consultaProximaTxt);
+        dataProx.setHours(0,0,0,0);
+        if (dataProx < hoje2) {
+          textoConsulta += `<span class="badge badge-warn">Próxima (atrasada): ${consultaProximaTxt}</span>`;
+        } else {
+          textoConsulta += `Próxima: ${consultaProximaTxt}`;
+        }
+      }
+
+      const alertas = gerarAlertasExames(ig, g.ex1, g.ex2, g.ex3, g.swab);
+
+      let riskLabel = "Não informado";
+      if (risco === "baixo") riskLabel = "Risco habitual";
+      if (risco === "intermediario") riskLabel = "Risco intermediário";
+      if (risco === "alto") riskLabel = "Alto risco";
+
+      const pillClass = risco ? `pill-risk ${risco}` : "pill-risk";
+
+      const idadeCalc = g.dataNasc ? calcularIdade(g.dataNasc) : "";
+
+      const linha = document.createElement("tr");
+      linha.className = classeLinha;
+
+      const testesRapidosHtml =
+        `${badgeTesteRapido(g.hivStatus, "HIV", g.hivObs)}<br>` +
+        `${badgeTesteRapido(g.sifilisStatus, "Sífilis", g.sifilisObs)}<br>` +
+        `${badgeTesteRapido(g.hbvStatus, "Hep. B", g.hbvObs)}<br>` +
+        `${badgeTesteRapido(g.hcvStatus, "Hep. C", g.hcvObs)}`;
+
+      linha.innerHTML = `
+        <td>
+          <strong>🤰 ${g.nome || "Sem nome"}</strong><br>
+          <span class="small">
+            ${g.dataNasc ? "Nasc.: " + g.dataNasc + (idadeCalc ? " ("+idadeCalc+" anos)" : "") + "<br>" : ""}
+            ${g.idade ? "Idade (campo): " + g.idade + " anos<br>" : ""}
+            ${g.ubs || ""} ${g.microarea ? " · Microárea " + g.microarea : ""} ${g.acs ? " · ACS " + g.acs : ""}
+          </span>
+        </td>
+        <td>
+          ${textoIG}<br>
+          <span class="small">
+            ${g.dum ? "DUM: " + g.dum + "<br>" : ""}
+            ${g.usData ? "1ª US: " + g.usData + " (" + (g.usSemanas || "0") + "s" + (g.usDias ? " " + g.usDias + "d" : "") + ")<br>" : ""}
+            DPP: ${dpp || "—"}
+          </span>
+        </td>
+        <td>
+          <span class="${pillClass}">
+            ${riskLabel}
+          </span>
+        </td>
+        <td>
+          ${badgeExame(g.ex1, "1º tri")}<br>
+          ${badgeExame(g.ex2, "2º tri / TTOG")}<br>
+          ${badgeExame(g.ex3, "3º tri")}<br>
+          ${badgeExame(g.swab, "Swab")}<br>
+          ${badgeOkPend(g.vacinas, "Vacinas em dia", "Vacinas pendentes")}<br>
+          ${badgeOkPend(g.odonto, "Odonto OK", "Odonto pendente")}<br>
+          ${testesRapidosHtml}
+        </td>
+        <td>
+          ${textoConsulta || "—"}
+        </td>
+        <td>
+          ${alertas}
+        </td>
+        <td>
+          <span class="small">
+            ${g.condicoes ? "<b>Condições:</b> " + g.condicoes.replace(/\n/g,"<br>") + "<br>" : ""}
+            ${g.alergias ? "<b>Alergias:</b> " + g.alergias.replace(/\n/g,"<br>") + "<br>" : ""}
+            ${g.justificativa ? "<b>Justificativa:</b> " + g.justificativa.replace(/\n/g,"<br>") : ""}
+            ${!g.condicoes && !g.alergias && !g.justificativa ? "—" : ""}
+          </span>
+        </td>
+        <td>
+          <button class="btn-outline btn-small" type="button" onclick='editarGestante(${JSON.stringify(g.id)})'>✏️ Editar</button>
+          <button class="btn-outline btn-small" type="button" onclick='removerGestante(${JSON.stringify(g.id)})'>🗑️ Remover</button>
+          <button class="btn-outline btn-small" type="button" onclick='abrirResumoPDF(${JSON.stringify(g.id)})'>📄 PDF</button>
+        </td>
+      `;
+      corpo.appendChild(linha);
+    });
+
+    atualizarBotoesFiltro();
+  }
+
+  function editarGestante(id) {
+    const lista = carregarGestantes();
+    const g = lista.find(x => x.id === id);
+    if (!g) return;
+    preencherFormulario(g);
+  }
+
+  function adicionarObservacao() {
+    const id = document.getElementById("id").value;
+    if (!id) {
+      alert("Salve a gestante antes de adicionar observação.");
+      return;
+    }
+    const campo = document.getElementById("novaObservacao");
+    if (!campo) return;
+    const texto = campo.value.trim();
+    if (!texto) return;
+
+    const hoje = new Date();
+    const dataStr = hoje.toLocaleDateString("pt-BR");
+    const linha = dataStr + " - " + texto;
+
+    const lista = carregarGestantes();
+    const idx = lista.findIndex(g => g.id === Number(id));
+    if (idx < 0) {
+      alert("Gestante não encontrada no registro.");
+      return;
+    }
+
+    const anterior = lista[idx].observacoes || "";
+    const nova = anterior ? (anterior + "\n" + linha) : linha;
+    lista[idx].observacoes = nova;
+    salvarGestantes(lista);
+
+    const hist = document.getElementById("obsHistorico");
+    if (hist) {
+      hist.innerHTML = nova.replace(/\n/g, "<br>");
+    }
+    campo.value = "";
+  }
+
+  document.getElementById("form-gestante").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const listaAtual = carregarGestantes();
+    const idExistente = document.getElementById("id").value;
+    const isNovo = !idExistente;
+
+    const nome = document.getElementById("nome").value.trim();
+    if (!nome) {
+      alert("Informe o nome da gestante.");
+      return;
+    }
+
+    const dum = document.getElementById("dum").value;
+    const usData = document.getElementById("usData").value;
+    const usSemanas = document.getElementById("usSemanas").value;
+    const usDias = document.getElementById("usDias").value;
+    const risco = document.getElementById("risco").value;
+    const consultaUltima = document.getElementById("consultaUltima").value;
+    let consultaProxima = document.getElementById("consultaProxima").value;
+
+    // recalcula DPP se houver DUM
+    const dpp = estimarDPP(dum, usData, usSemanas, usDias);
+
+    const consultaObstetra = document.getElementById("consultaObstetra") ? document.getElementById("consultaObstetra").value : "";
+    const altoRiscoExterno = document.getElementById("altoRiscoExterno") ? document.getElementById("altoRiscoExterno").value : "";
+    const dataAltoRisco = document.getElementById("dataAltoRisco") ? document.getElementById("dataAltoRisco").value : "";
+    const nutricionista = document.getElementById("nutricionista") ? document.getElementById("nutricionista").value : "";
+    const dataNutri = document.getElementById("dataNutri") ? document.getElementById("dataNutri").value : "";
+    const testeRapido = document.getElementById("testeRapido") ? document.getElementById("testeRapido").value : "";
+    const testeMae = document.getElementById("testeMae") ? document.getElementById("testeMae").value : "";
+    const preventivo = document.getElementById("preventivo") ? document.getElementById("preventivo").value : "";
+
+    let observacoesExistentes = "";
+    if (!isNovo) {
+      const antigo = listaAtual.find(g => g.id === Number(idExistente));
+      if (antigo && antigo.observacoes) observacoesExistentes = antigo.observacoes;
+    }
+
+    const gestante = {
+      id: isNovo ? Date.now() : Number(idExistente),
+      nome,
+      dataNasc: document.getElementById("dataNasc").value,
+      idade: document.getElementById("idade").value,
+      ubs: document.getElementById("ubs").value,
+      microarea: document.getElementById("microarea").value,
+      acs: document.getElementById("acs").value,
+      risco,
+      dum,
+      usData,
+      usSemanas,
+      usDias,
+      consultaUltima,
+      consultaProxima,
+      dpp,
+      swab: document.getElementById("swab").value,
+      ex1: document.getElementById("ex1").value,
+      ex2: document.getElementById("ex2").value,
+      ex3: document.getElementById("ex3").value,
+      vacinas: document.getElementById("vacinas").value,
+      odonto: document.getElementById("odonto").value,
+      condicoes: document.getElementById("condicoes").value.trim(),
+      alergias: document.getElementById("alergias").value.trim(),
+      justificativa: document.getElementById("justificativa").value.trim(),
+      consultaObstetra,
+      altoRiscoExterno,
+      dataAltoRisco,
+      nutricionista,
+      dataNutri,
+      testeRapido,
+      testeMae,
+      preventivo,
+      hivStatus: document.getElementById("hivStatus").value,
+      hivObs: document.getElementById("hivObs").value.trim(),
+      sifilisStatus: document.getElementById("sifilisStatus").value,
+      sifilisObs: document.getElementById("sifilisObs").value.trim(),
+      hbvStatus: document.getElementById("hbvStatus").value,
+      hbvObs: document.getElementById("hbvObs").value.trim(),
+      hcvStatus: document.getElementById("hcvStatus").value,
+      hcvObs: document.getElementById("hcvObs").value.trim(),
+      // rotinas de testes rápidos
+      tr1_hiv: document.getElementById("tr1_hiv").value,
+      tr1_sifilis: document.getElementById("tr1_sifilis").value,
+      tr1_hbv: document.getElementById("tr1_hbv").value,
+      tr1_hcv: document.getElementById("tr1_hcv").value,
+      tr2_hiv: document.getElementById("tr2_hiv").value,
+      tr2_sifilis: document.getElementById("tr2_sifilis").value,
+      tr2_hbv: document.getElementById("tr2_hbv").value,
+      tr2_hcv: document.getElementById("tr2_hcv").value,
+      tr3_hiv: document.getElementById("tr3_hiv").value,
+      tr3_sifilis: document.getElementById("tr3_sifilis").value,
+      tr3_hbv: document.getElementById("tr3_hbv").value,
+      tr3_hcv: document.getElementById("tr3_hcv").value,
+      observacoes: observacoesExistentes
+    };
+
+    if (isNovo) {
+      listaAtual.push(gestante);
+    } else {
+      const idx = listaAtual.findIndex(g => g.id === gestante.id);
+      if (idx >= 0) listaAtual[idx] = gestante;
+    }
+
+    salvarGestantes(listaAtual);
+    renderizarTabela();
+    document.getElementById("dpp").value = dpp || "";
+    alert("Gestante salva com sucesso.");
+  });
+
+  function exportarCSV() {
+    const lista = carregarGestantes();
+    if (!lista.length) {
+      alert("Não há gestantes cadastradas.");
+      return;
+    }
+
+    const headers = [
+      "Nome","DataNasc","IdadeCampo","UBS","Microarea","ACS","Risco",
+      "DUM","Data1aUS","IGUS_sem","IGUS_dias",
+      "UltimaConsulta","ProximaConsulta","DPP",
+      "Exames1Tri","Exames2Tri_TTOG","Exames3Tri",
+      "Swab","Vacinas","Odonto",
+      "TesteRapido","TesteMae","Preventivo",
+      "HIV_status","HIV_obs",
+      "Sifilis_status","Sifilis_obs",
+      "HepB_status","HepB_obs",
+      "HepC_status","HepC_obs",
+      "TR1_HIV","TR1_Sifilis","TR1_HepB","TR1_HepC",
+      "TR2_HIV","TR2_Sifilis","TR2_HepB","TR2_HepC",
+      "TR3_HIV","TR3_Sifilis","TR3_HepB","TR3_HepC",
+      "CondicoesSaude","Alergias","Justificativa"
+    ];
+
+    const linhas = [headers.join(";")];
+
+    lista.forEach(g => {
+      const linha = [
+        g.nome || "",
+        g.dataNasc || "",
+        g.idade || "",
+        g.ubs || "",
+        g.microarea || "",
+        g.acs || "",
+        g.risco || "",
+        g.dum || "",
+        g.usData || "",
+        g.usSemanas || "",
+        g.usDias || "",
+        g.consultaUltima || "",
+        g.consultaProxima || "",
+        g.dpp || "",
+        g.ex1 || "",
+        g.ex2 || "",
+        g.ex3 || "",
+        g.swab || "",
+        g.vacinas || "",
+        g.odonto || "",
+        g.testeRapido || "",
+        g.testeMae || "",
+        g.preventivo || "",
+        g.hivStatus || "",
+        g.hivObs || "",
+        g.sifilisStatus || "",
+        g.sifilisObs || "",
+        g.hbvStatus || "",
+        g.hbvObs || "",
+        g.hcvStatus || "",
+        g.hcvObs || "",
+        g.tr1_hiv || "",
+        g.tr1_sifilis || "",
+        g.tr1_hbv || "",
+        g.tr1_hcv || "",
+        g.tr2_hiv || "",
+        g.tr2_sifilis || "",
+        g.tr2_hbv || "",
+        g.tr2_hcv || "",
+        g.tr3_hiv || "",
+        g.tr3_sifilis || "",
+        g.tr3_hbv || "",
+        g.tr3_hcv || "",
+        (g.condicoes || "").replace(/\n/g," / "),
+        (g.alergias || "").replace(/\n/g," / "),
+        (g.justificativa || "").replace(/\n/g," / ")
+      ];
+      linhas.push(linha.map(v => `"${(v || "").replace(/"/g,'""')}"`).join(";"));
+    });
+
+    const csv = linhas.join("\n");
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "gestantes_prenatal_dra_schwartz.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function exportarBackupJSON() {
+    const lista = carregarGestantes();
+    const blob = new Blob([JSON.stringify(lista,null,2)], { type: "application/json;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "backup_prenatal_dra_schwartz.json";
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function importarBackupJSON(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const dados = JSON.parse(e.target.result);
+        if (!Array.isArray(dados)) throw new Error("Formato inválido");
+        salvarGestantes(dados);
+        renderizarTabela();
+        alert("Backup importado com sucesso.");
+      } catch (err) {
+        alert("Erro ao importar backup. Verifique o arquivo.");
+      }
+    };
+    reader.readAsText(file, "utf-8");
+  }
+
+  function setFiltro(tipo) {
+    filtroAtual = tipo;
+    renderizarTabela();
+  }
+
+  function atualizarBotoesFiltro() {
+    const map = { "todas": "f-todas", "atraso": "f-atraso", "risco": "f-risco" };
+    Object.keys(map).forEach(k => {
+      const btn = document.getElementById(map[k]);
+      if (!btn) return;
+      if (k === filtroAtual) btn.classList.add("btn-filter-active");
+      else btn.classList.remove("btn-filter-active");
+    });
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    renderizarTabela();
+  });
+</script>
+
+<script>
+  // Controle de login
+  document.addEventListener("DOMContentLoaded", function () {
+    const auth = window._auth;
+    const fns = window._authFns || {};
+    const onAuthStateChanged = fns.onAuthStateChanged;
+    const signInWithEmailAndPassword = fns.signInWithEmailAndPassword;
+    const signOut = fns.signOut;
+
+    const loginContainer = document.getElementById("login-container");
+    const headerElm = document.querySelector("header");
+    const appContainer = document.querySelector(".container");
+    const loginForm = document.getElementById("login-form");
+    const loginError = document.getElementById("login-error");
+    const loginButton = document.getElementById("login-submit");
+    const logoutBtn = document.getElementById("logout-btn");
+
+    function showLoggedIn() {
+      if (loginContainer) loginContainer.style.display = "none";
+      if (headerElm) headerElm.classList.remove("app-auth-hidden");
+      if (appContainer) appContainer.classList.remove("app-auth-hidden");
+      if (logoutBtn) logoutBtn.style.display = "inline-flex";
+    }
+
+    function showLoggedOut() {
+      if (loginContainer) loginContainer.style.display = "block";
+      if (headerElm) headerElm.classList.add("app-auth-hidden");
+      if (appContainer) appContainer.classList.add("app-auth-hidden");
+      if (logoutBtn) logoutBtn.style.display = "none";
+      if (loginButton) {
+        loginButton.disabled = false;
+        loginButton.textContent = "Entrar";
+      }
+    }
+
+    if (onAuthStateChanged && auth) {
+      onAuthStateChanged(auth, user => {
+        if (user) showLoggedIn();
+        else showLoggedOut();
+      });
+    }
+
+    if (loginForm && signInWithEmailAndPassword && auth) {
+      loginForm.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        if (loginError) {
+          loginError.style.display = "none";
+          loginError.textContent = "";
+        }
+        if (loginButton) {
+          loginButton.disabled = true;
+          loginButton.textContent = "Entrando...";
+        }
+
+        const email = document.getElementById("login-email").value.trim();
+        const senha = document.getElementById("login-password").value;
+
+        try {
+          await signInWithEmailAndPassword(auth, email, senha);
+        } catch (err) {
+          console.error(err);
+          if (loginError) {
+            loginError.textContent = "E-mail ou senha inválidos.";
+            loginError.style.display = "block";
+          }
+          if (loginButton) {
+            loginButton.disabled = false;
+            loginButton.textContent = "Entrar";
+          }
+        }
+      });
+    }
+
+    if (logoutBtn && signOut && auth) {
+      logoutBtn.addEventListener("click", async function () {
+        try {
+          await signOut(auth);
+        } catch (err) {
+          console.error(err);
+          alert("Erro ao sair. Tente novamente.");
+        }
+      });
+    }
+  });
+</script>
+
+</body>
+</html>
